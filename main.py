@@ -1,11 +1,12 @@
 class Stack:
     def __init__(self):
         self.stack = []
+        self.brackets_dict = {')': '(', ']': '[', '}': '{'}
 
     def is_empty(self):
         return len(self.stack) == 0
 
-    def push(self, item):
+    def push(self, item: str):
         self.stack.append(item)
 
     def pop(self):
@@ -19,11 +20,10 @@ class Stack:
     def size(self):
         return len(self.stack)
 
-    def balance_brackets(self, str_):
-        brackets = {')': '(', ']': '[', '}': '{'}
-        for char in str_:
-            if char in brackets.keys():
-                if self.size() and self.peek() == brackets[char]:
+    def balance_brackets(self, brackets_str: str):
+        for char in brackets_str:
+            if char in self.brackets_dict.keys():
+                if self.size() and self.peek() == self.brackets_dict[char]:
                     self.stack.pop()
                 else:
                     return "Несбалансированно"
